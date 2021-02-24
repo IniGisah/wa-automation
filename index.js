@@ -130,12 +130,12 @@ async function procMess(message) {
         await cl.reply(message.chatId, "You're not an admin!", message.id);
       }
     } else if (message.body.startsWith("HALO")){
-      await cl.sendFileFromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/4:/haloo.aac', "halo.aac", "Haloo", null, null, null, true);
-      await cl.sendStickerfromUrl(message.chatID, 'https://tesuu.luii-index.workers.dev/2:/stiker/haloo.png');
-      await cl.sendStickerfromUrl(message.chatID, 'https://tesuu.luii-index.workers.dev/2:/stiker/halo2.jpeg');
+      await cl.sendFileFromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/haloo.mp3', "halo.aac", "Haloo", null, null, null, true);
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/haloo.png');
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/halo2.jpeg');
     } else if (message.body.startsWith("asep")){
-      await cl.sendStickerfromUrl(message.chatID, 'https://tesuu.luii-index.workers.dev/2:/stiker/asep1.png');
-      await cl.sendStickerfromUrl(message.chatID, 'https://tesuu.luii-index.workers.dev/2:/stiker/asep2.png');
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/asep1.png');
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/asep2.png');
     }
   } else if (
     ["image", "video"].includes(message.type) &&
