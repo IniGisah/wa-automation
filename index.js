@@ -19,6 +19,7 @@ const helpText =
 #menu: same as help but some people prefer it
 #run languages: Returns all languages supported
 #run {language}
+HALOO: show haloo message
 {code}: Run some code in some language
 eg.
 '#run node
@@ -31,7 +32,7 @@ Made by: pathetic_geek (https://github.com/patheticGeek)
 
 const leaveText =
   process.env.LEAVE_TEXT ||
-  "Ab unko humshe rishta nhi rakhna hai\nto humari taraf se bhi koi zabardasti nhi hai";
+  "babay, gw keluar dulu";
 
 const server = express();
 const PORT = parseInt(process.env.PORT) || 3000;
@@ -49,6 +50,7 @@ let cl = null;
  * Process the message
  * @param {import("@open-wa/wa-automate").Message} message
  */
+
 async function procMess(message) {
   if (message.type === "chat") {
     if (
@@ -127,6 +129,13 @@ async function procMess(message) {
       } else {
         await cl.reply(message.chatId, "You're not an admin!", message.id);
       }
+    } else if (message.body.startsWith("HALO")){
+      await cl.sendFileFromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/4:/haloo.aac', "halo.aac", "Haloo", null, null, null, true);
+      await cl.sendStickerfromUrl(message.chatID, 'https://tesuu.luii-index.workers.dev/2:/stiker/haloo.png');
+      await cl.sendStickerfromUrl(message.chatID, 'https://tesuu.luii-index.workers.dev/2:/stiker/halo2.jpeg');
+    } else if (message.body.startsWith("asep")){
+      await cl.sendStickerfromUrl(message.chatID, 'https://tesuu.luii-index.workers.dev/2:/stiker/asep1.png');
+      await cl.sendStickerfromUrl(message.chatID, 'https://tesuu.luii-index.workers.dev/2:/stiker/asep2.png');
     }
   } else if (
     ["image", "video"].includes(message.type) &&
