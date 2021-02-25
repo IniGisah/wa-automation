@@ -172,7 +172,7 @@ async function procMess(message) {
     } else if (message.body.startsWith("#listtugas")){
       await cl.reply(message.chatId, "Daftar tugas : ", message.id);
       tugas.forEach(function (item, index){
-        await cl.sendText(message.chatId, (index+1) + item);
+        cl.sendText(message.chatId, (index+1) + item);
       });
     } else if (message.body.startsWith("#hapustugas ")){
       const nomer = message.body.split("#hapustugas ");
