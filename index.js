@@ -19,15 +19,15 @@ const helpText =
 #menu: same as help but some people prefer it
 #run languages: Returns all languages supported
 #run {language}
-HALOO: show haloo message
-{code}: Run some code in some language
-eg.
-'#run node
-console.log('hello world');'
-
+halo: show haloo message
+asep: ngirim stiker asep
+#kick: kick orang dengan tag
+#loginvr: tag orang2 yg maen vr
+#addtugas 'isi tugas disini' : nambah list tugas
+#listtugas: nge list tugas yg ada
+#hapustugas 'nomor tugas' : buat ngapus tugas
+dll saia mager nulis help lagi
 Add '#nospam' in group description to stop spam commands
-All commands except #spam & #leave work in pm
-Made by: pathetic_geek (https://github.com/patheticGeek)
 `;
 
 const leaveText =
@@ -40,6 +40,9 @@ const queue = new PQueue({
   concurrency: 2,
   autoStart: false,
 });
+const tugas = [];
+var tlen,i;
+tlen = tugas.length;
 /**
  * WA Client
  * @type {null | import("@open-wa/wa-automate").Client}
@@ -68,7 +71,7 @@ async function procMess(message) {
         message.chat.groupMetadata.desc &&
         message.chat.groupMetadata.desc.includes("#nospam")
       ) {
-        await cl.sendText(message.chatId, "Spam protected group");
+        await cl.sendText(message.chatId, "Gaboleh spam disini");
       } else {
         const text = `hello ${message.chat.groupMetadata.participants.map(
           (participant) =>
@@ -116,7 +119,7 @@ async function procMess(message) {
     } else if (message.body.toLowerCase() === "#nospam") {
       await cl.reply(
         message.chatId,
-        "Add #nospam in group description",
+        "Tambah #nospam di deskripsi grup biar #spam gabisa",
         message.id
       );
     } else if (message.isGroupMsg && message.body.toLowerCase() === "#leave") {
@@ -124,24 +127,63 @@ async function procMess(message) {
         (pat) => pat.id === message.author
       );
       if (user && user.isAdmin) {
-        await cl.sendText(message.chatId, leaveText);
-        await cl.leaveGroup(message.chat.id);
+        await cl.sendText(message.chatId, "gamao, gw gamao leave");
+        //await cl.leaveGroup(message.chat.id);
       } else {
-        await cl.reply(message.chatId, "You're not an admin!", message.id);
+        await cl.reply(message.chatId, "Gabisa, lu bukan admin", message.id);
       }
-    } else if (message.body.startsWith("HALO")){
+    } else if (message.isGroupMsg && message.body.startsWith("#kick ")){
+      if (user && user.isAdmin) {
+        await cl.removeParticipant(message.chat.Id, message.body.split("#kick "));
+      } else {
+        await cl.reply(message.chatId, "Gabisa, lu bukan admin", message.id);
+      }
+    } else if (message.isGroupMsg && message.body.toLowerCase() === "#loginvr"){
+      const vr = "Login vr dong \n yasman @6281285600258 \n hadid @6281329989383 \n junas @628978113198 \n barra @6281388088047 \n titan @6287788087760 \n sean @6283818448972 \n ari @6281299115053 \n dito @6285155277438";
+      await cl.sendTextWithMentions(message.chatId, vr);
+    } else if (message.body.toLowerCase() === "#halo"){
       await cl.sendFileFromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/haloo.mp3', "halo.aac", "Haloo", null, null, null, true);
       await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/haloo.png');
       await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/halo2.jpeg');
-    } else if (message.body.startsWith("asep")){
+    } else if (message.body.toLowerCase() === "#asep"){
       await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/asep1.png');
       await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/asep2.png');
+    } else if (message.body.toLowerCase() === "#tabah"){
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/tabah1.jpeg');
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/tabah2.jpg');
+    } else if (message.body.toLowerCase() === "#lutelat"){
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/lotelat.jpeg');
+    } else if (message.body.toLowerCase() === "#bayu"){
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/bayu1.jpeg');
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/bayu2.jpeg');
+    } else if (message.body.toLowerCase() === "#payoy"){
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/payoy.jpg');
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/payoy.jpg');
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/payoy.jpg');
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/payoy.jpg');
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/payoy2.jpeg');
+    } else if (message.body.toLowerCase() === "#teja"){
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/teja1.jpg');
+      await cl.sendStickerfromUrl(message.chatId, 'https://tesuu.luii-index.workers.dev/2:/stiker/teja2.webp');
+    } else if (message.body.startsWith("#addtugas ")){
+      const tugasadd = message.body.split("#addtugas ");
+      tugas.push(tugasadd);
+      await cl.reply(message.chatId, "Tugas sudah ditambahkan!", message.id);
+    } else if (message.body.startsWith("#listtugas")){
+      await cl.reply(message.chatId, "Daftar tugas : ", message.id);
+      tugas.forEach(function (item, index){
+        await cl.sendText(message.chatId, (index+1) + item);
+      });
+    } else if (message.body.startsWith("#hapustugas ")){
+      const nomer = message.body.split("#hapustugas ");
+      delete tugas[nomer];
+      await cl.reply(message.chatId, "Tugas dengan nomor " + nomer + " sudah dihapus", message.id);
     }
   } else if (
     ["image", "video"].includes(message.type) &&
     message.caption === "#sticker"
   ) {
-    await cl.sendText(message.chatId, "Processing sticker");
+    await cl.reply(message.chatId, "Bentar, stiker lagi di proses...", message.id);
     const mediaData = await decryptMedia(message);
     const dataUrl = `data:${message.mimetype};base64,${mediaData.toString(
       "base64"
