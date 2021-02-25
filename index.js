@@ -7,7 +7,7 @@ const axios = require("axios").default;
 
 const helpOnInPM = ["hello", "hi", "hii", "hey", "heyy", "#help", "#menu"];
 const helpOnInGroup = ["#help", "#menu"];
-
+const tugas = [];
 const helpText =
   process.env.HELP_TEXT ||
   `Commands:
@@ -40,9 +40,7 @@ const queue = new PQueue({
   concurrency: 2,
   autoStart: false,
 });
-const tugas = [];
-var tlen,i;
-tlen = tugas.length;
+
 /**
  * WA Client
  * @type {null | import("@open-wa/wa-automate").Client}
