@@ -217,12 +217,20 @@ async function start(client) {
   client.onMessage(processMessage);
 }
 
-ev.on("qr.**", async (qrcode) => {
+/*ev.on("qr.**", async (qrcode) => {
   const imageBuffer = Buffer.from(
     qrcode.replace("data:image/png;base64,", ""),
     "base64"
   );
   fs.writeFileSync("./public/qr_code.png", imageBuffer);
+});*/
+
+ev.on('qr.**', async (qrcode,sessionId) => {
+  // console.log("TCL: qrcode", qrcode)
+  //     console.log("TCL: qrcode,sessioId", qrcode,sessionId)
+  //base64 encoded qr code image
+  const imageBuffer = Buffer.from(qrcode.replace('data:image/png;base64,',''), 'base64');
+  fs.writeFileSync(`./public/qr_code${sessionId?'_'+sessionId:''}.png`, imageBuffer);
 });
 
 create({
